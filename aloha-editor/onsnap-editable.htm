@@ -6,7 +6,17 @@
               <style>
                 body {
                     font-family: arial;
+                    color: white;
                 }
+                
+                a {
+                    color: white;
+                }
+                
+                #page {
+                    margin: 200px 0 0 0;
+                }
+                
                 .editable {
                     margin: 5px auto;
                     width: 50%;
@@ -15,6 +25,44 @@
                 h1, h2 {
                     margin: 20px auto;
                 }
+                
+                #video {
+                    margin: 50px auto;
+                    width: 640px;
+                }
+                
+                #bg-image {
+                    width: 100%;
+                    padding: 0;
+                    margin: 0;
+                    position: absolute;
+                    top:0;
+                    left:0;
+                    z-index: -1000;
+                    overflow: auto;
+                }
+                
+                #message {
+                    font-family:Arial,Helvetica,sans-serif;
+                    position:fixed;
+                    top:0px;
+                    left:0px;
+                    width:100%;
+                    z-index:105;
+                    text-align:center;
+                    font-weight:bold;
+                    font-size:100%;
+                    color:white;
+                    padding:10px 0px 10px 0px;
+                    background-color:#8E1609;
+                }
+
+                #message span {
+                    text-align: center;
+                    width: 90%;
+                    float:left;
+                }
+
               </style>
 
               <!-- load the Aloha Editor CSS styles -->
@@ -22,14 +70,17 @@
 
        </head>
        <body>
-              <h1 class="editable">Aloha Editor: onSnap editable!</h1>
+
+           <div id="page">
+              <h1 class="editable">onSnap editable!</h1>
  
-              <p class="editable"><i><b>Snap to edit</b></i> this paragraph.</p>
+              <p class="editable"><i><b>Snap your fingers to edit</b></i> this page.</p>
  
               <div class="editable">
                      <h2>HTML5 editable</h2>
                      <p>Join the Aloha Editor <a href="http://aloha-editor.org/barcamp/">BarCamp</a> in Vienna and follow <a href="https://twitter.com/search?q=%23AEcamp">#AEcamp</a> on Twitter to learn about next generation editable user interfaces.</p>
                      <p>HTML5 content editable with <a href="http://aloha-editor.org/">Aloha Editor</a>. Activate Aloha Editor with <a href="https://github.com/franzenzenhofer/onsnap.js">onsnap.js</a>.</p>
+                     <p>Note: You'll need a good / new browser supporting HTML5 audio (like Chrome, Firefox, ...)</p>
                      
                      <h3>Stay up to date</h3>
 
@@ -38,6 +89,18 @@
                             <li><a href="https://www.facebook.com/alohaeditor">Facebook</a></li>
                      </ul>
               </div>
+              
+              <div id="video">
+                  <iframe width="640" height="360" src="http://www.youtube.com/embed/vh_HHP3CVac?rel=0" frameborder="0" allowfullscreen></iframe>
+              </div>
+              
+            </div>
+            
+            <div id='message' style="display: none;">
+                <span>onSnap: <em>Aloha Editor</em> activated!</span>
+            </div>
+            
+              <img id="bg-image" src="aloha-editor-demo-background.png">
 
 
               <!-- load the jQuery and require.js libraries -->
@@ -45,6 +108,18 @@
               <script type="text/javascript" src="http://cdn.aloha-editor.org/latest/lib/vendor/jquery-1.7.2.js"></script>
               <script type="text/javascript" src="https://googledrive.com/host/0B_fklpg3IDw2XzFPQmN0aExYYmc/onsnap.js"></script>
  
+                
+                <script>
+                    var Aloha = window.Aloha || (window.Aloha = {});
+
+                	Aloha.settings = {};
+
+                	// Sidebar settings
+                	Aloha.settings.sidebar = {
+                		disabled: true
+                	};
+                </script>
+                
               <!-- load the Aloha Editor core and some plugins -->
               <script src="http://cdn.aloha-editor.org/latest/lib/aloha.js"
                                    data-aloha-plugins="common/ui,
@@ -62,6 +137,13 @@
                             window.document.addEventListener("snap", function () {
                                 $('.editable').aloha();
                                 if (window.console) window.console.log('onsnap editable!');
+                                
+                                $("#message").fadeIn("slow").fadeOut("veryslow");
+                                $("#message a.close-notify").click(function() {
+                                    $("#message").fadeOut("slow");
+                                    return false;
+                                });
+                                
                             });
                      });
               </script>
